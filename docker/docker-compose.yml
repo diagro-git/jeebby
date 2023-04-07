@@ -18,7 +18,7 @@ services:
       - jeebby-network
     restart: always
     volumes:
-      - /home/diagro/jeebby_backend:/diagro
+      - /home/diagro/jeebby:/jeebby
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.jeebby_dev.entrypoints=websecure"
