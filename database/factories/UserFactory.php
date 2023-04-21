@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Team;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
@@ -68,5 +69,19 @@ class UserFactory extends Factory
                 ->when(is_callable($callback), $callback),
             'ownedTeams'
         );
+    }
+
+    /**
+     * Jeebby system user properties.
+     */
+    public function jeebbySystem(): static
+    {
+        $rand = $this->faker->text(6);
+        return $this->state([
+            'name' => 'Jeebby ' . $rand,
+            'email' => 'jeeby_' . $rand . '@intern.al',
+            'email_verified_at' => Carbon::now(),
+            'jeebby_system' => true,
+            ]);
     }
 }
