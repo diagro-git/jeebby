@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
 
@@ -76,12 +77,13 @@ class UserFactory extends Factory
      */
     public function jeebbySystem(): static
     {
-        $rand = $this->faker->text(6);
+        $uuid = uuid_create();
         return $this->state([
-            'name' => 'Jeebby ' . $rand,
-            'email' => 'jeeby_' . $rand . '@intern.al',
+            'name' => $uuid,
+            'password' => Hash::make($this->faker->password()),
+            'email' => str_replace('-', '', $uuid) . '@intern.al',
             'email_verified_at' => Carbon::now(),
             'jeebby_system' => true,
-            ]);
+        ]);
     }
 }

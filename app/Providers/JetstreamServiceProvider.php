@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Actions\Jetstream\CreateTeam;
 use App\Actions\Jetstream\DeleteTeam;
-use App\Actions\Jetstream\InviteTeamMember;
 use App\Actions\Jetstream\UpdateTeamName;
 use App\Permissions;
 use Illuminate\Support\Arr;
@@ -13,6 +12,7 @@ use App\Extensions\Jetstream\Jetstream;
 use App\Extensions\Jetstream\RemoveTeamMember;
 use App\Extensions\Jetstream\DeleteUser;
 use App\Extensions\Jetstream\AddTeamMember;
+use App\Extensions\Jetstream\InviteTeamMember;
 
 class JetstreamServiceProvider extends ServiceProvider
 {
