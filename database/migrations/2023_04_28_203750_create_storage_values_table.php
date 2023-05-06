@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('flows', function (Blueprint $table) {
-            $table->ulid('id')->primary();
-            $table->string('name', 30);
-            $table->string('description');
+        Schema::create('storage_values', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(\App\Models\Installation::class);
+            $table->foreignIdFor(\App\Models\FlowStorageField::class);
+            $table->string('value');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('flows');
+        Schema::dropIfExists('storage_values');
     }
 };

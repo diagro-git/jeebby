@@ -50,11 +50,11 @@ class JetstreamServiceProvider extends ServiceProvider
         Jetstream::role('jeebby_system', 'Jeebby System', [Permissions::MONITOR_WRITE, Permissions::STORAGE_READ, Permissions::STORAGE_WRITE], false)
             ->description('Jeebby system users have ability to read/write to storage and write monitor.');
 
-        Jetstream::role('admin', 'Administrator', [Permissions::getAllPermissions()])
+        Jetstream::role('admin', 'Administrator', Permissions::getAllPermissions())
             ->description('Administrators can do it all!');
 
         //TODO: filter permissions.
-        Jetstream::role('user', 'User', [Permissions::getAllPermissions()])
+        Jetstream::role('user', 'User', Permissions::getAllPermissions())
             ->description('Users can do all except team admin actions.');
 
         Jetstream::role('viewer', 'Viewer',Permissions::getAllPermissions(fn(array $permissions) => Arr::where($permissions, fn($permission) => str_ends_with($permission, ':read'))))

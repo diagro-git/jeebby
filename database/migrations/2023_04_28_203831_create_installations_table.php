@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('flows', function (Blueprint $table) {
-            $table->ulid('id')->primary();
-            $table->string('name', 30);
-            $table->string('description');
+        Schema::create('installations', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(\App\Models\Flow::class);
+            $table->foreignIdFor(\App\Models\Team::class);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('flows');
+        Schema::dropIfExists('installations');
     }
 };
