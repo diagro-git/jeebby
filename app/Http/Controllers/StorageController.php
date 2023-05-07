@@ -8,6 +8,7 @@ use App\Models\Flow;
 use App\Models\FlowStorageField;
 use App\Models\Installation;
 use App\Models\StorageValue;
+use App\Services\StorageService;
 use Illuminate\Http\Request;
 
 class StorageController extends Controller
@@ -27,7 +28,7 @@ class StorageController extends Controller
         $storageValue->saveOrFail();
     }
 
-    public function getValue(Request $request, Installation $installation, FlowStorageField $storageField)
+    public function lastVale(Request $request, StorageService $storageService, Installation $installation, FlowStorageField $storageField)
     {
         //aggregation method
         //
