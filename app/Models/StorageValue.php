@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Castables\StorageValueCastable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,6 +13,10 @@ class StorageValue extends Model
 
     protected $fillable = [
         'value'
+    ];
+
+    protected $casts = [
+        'value' => StorageValueCastable::class
     ];
 
 

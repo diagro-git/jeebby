@@ -3,12 +3,11 @@
 namespace App\Casts;
 
 use App\Models\Enums\StorageFieldType;
-use App\Models\FlowStorageField;
 use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
-class StorageValue implements CastsAttributes
+class StorageValueCast implements CastsAttributes
 {
     /**
      * Cast the given value.
