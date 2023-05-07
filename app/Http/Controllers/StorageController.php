@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorageRequest;
-use App\Http\Resources\FlowStorageFieldCollection;
+use App\Http\Resources\FlowStorageFieldResource;
 use App\Models\Flow;
 use App\Models\FlowStorageField;
 use App\Models\Installation;
 use App\Models\StorageValue;
-use App\Rules\StorageValueRule;
 use Illuminate\Http\Request;
 
 class StorageController extends Controller
@@ -16,7 +15,7 @@ class StorageController extends Controller
 
     public function fields(Request $request, Flow $flow)
     {
-        return new FlowStorageFieldCollection($flow->storageFields());
+        return FlowStorageFieldResource::collection($flow->storageFields());
     }
 
     public function store(StorageRequest $request, Installation $installation, FlowStorageField $storageField)
@@ -26,6 +25,12 @@ class StorageController extends Controller
         $storageValue->installation()->associate($installation);
         $storageValue->storageField()->associate($storageField);
         $storageValue->saveOrFail();
+    }
+
+    public function getValue(Request $request, Installation $installation, FlowStorageField $storageField)
+    {
+        //aggregation method
+        //
     }
 
 }

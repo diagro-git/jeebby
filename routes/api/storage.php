@@ -12,9 +12,15 @@ Route::prefix('storage')->controller(\App\Http\Controllers\StorageController::cl
             ->can('read', 'flowStorageField')
             ->can('store', \App\Models\StorageValue::class);
 
-        Route::get('/installation/{installation}/field/{flowStorageField}', 'getValue')
-            ->can('read', 'installation')
-            ->can('read', 'flowStorageField')
-            ->can('read', \App\Models\StorageValue::class);
+        Route::prefix('installation/{installation}/field/{flowStorageField}')
+            ->group(function() {
+
+                Route::get('/last-value', 'lastValue');
+                Route::get('/from/{from}/to/{to}');
+                Route::get('/today');
+                Route::get('/yesterday');
+                Route::get('/today-yesterday');
+
+            });
 
     });
