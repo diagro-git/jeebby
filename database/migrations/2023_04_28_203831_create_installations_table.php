@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('installations', function (Blueprint $table) {
-            $table->id();
             $table->foreignIdFor(\App\Models\Flow::class);
             $table->foreignIdFor(\App\Models\Team::class);
             $table->timestamps();

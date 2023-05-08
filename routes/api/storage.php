@@ -5,11 +5,12 @@ Route::prefix('storage')->controller(\App\Http\Controllers\StorageController::cl
     ->group(function() {
 
         Route::get('fields/{flow}', 'fields')
-            ->can('flow', 'read');
+            ->can('view', 'flow'); //iets met storage in access token rechten geburiken
 
-        Route::post('/installation/{installation}/field/{flowStorageField:name}', 'store')
-            ->can('read', 'installation')
-            ->can('read', 'flowStorageField')
+        Route::post('/team/{team}/flow/{flow}/field/{flowStorageField:name}', 'store')
+            ->can('view', 'flow')
+            ->can('view', 'team')
+            ->can('view', 'flowStorageField')
             ->can('store', \App\Models\StorageValue::class);
 
         Route::prefix('installation/{installation}/field/{flowStorageField:name}')

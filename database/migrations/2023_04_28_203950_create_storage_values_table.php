@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('storage_values', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Installation::class);
+            $table->foreignIdFor(\App\Models\Team::class);
+            $table->foreignIdFor(\App\Models\Flow::class);
             $table->foreignIdFor(\App\Models\FlowStorageField::class);
             $table->string('value');
             $table->timestamps();

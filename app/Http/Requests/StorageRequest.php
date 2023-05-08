@@ -22,7 +22,7 @@ class StorageRequest extends ActionMethodRulesRequest
             $storageField = FlowStorageField::query()->find($storageField);
         }
         return [
-            'value' => ['present', new StorageValueRule($storageField)]
+            'value' => ['present', new StorageValueRule($storageField->type)]
         ];
     }
 }

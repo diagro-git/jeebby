@@ -19,8 +19,9 @@ return new class extends Migration
             $table->boolean('input')->default(false);
             $table->boolean('output')->default(false);
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->unique(['flow_id', 'name', 'flow_storage_fields_flow_id_name_unique']);
+            $table->unique(['flow_id', 'name'], 'fsfin_unq');
         });
     }
 

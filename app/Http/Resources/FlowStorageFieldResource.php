@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Enums\StorageFieldType;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,6 +15,8 @@ class FlowStorageFieldResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        $data = parent::toArray($request);
+        $data['type_name'] = StorageFieldType::from($data['type'])->name;
+        return $data;
     }
 }

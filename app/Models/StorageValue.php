@@ -20,9 +20,14 @@ class StorageValue extends Model
     ];
 
 
-    public function installation(): BelongsTo
+    public function team(): BelongsTo
     {
-        return $this->belongsTo(Installation::class);
+        return $this->belongsTo(Team::class);
+    }
+
+    public function flow(): BelongsTo
+    {
+        return $this->belongsTo(Flow::class);
     }
 
     public function storageField(): BelongsTo

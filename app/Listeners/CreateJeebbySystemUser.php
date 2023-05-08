@@ -20,6 +20,7 @@ class CreateJeebbySystemUser
         $event->team->users()->attach($user->id, ['role' => 'jeebby_system']);
         $user->switchTeam($event->team);
 
-        $user->createToken('Jeebby', Jetstream::findRole('jeebby_system')?->permissions ?? []);
+        $token = $user->createToken('Jeebby', Jetstream::findRole('jeebby_system')?->permissions ?? []);
+        logger()->debug('token: ' . $token->plainTextToken . ', access_token: ' . $token->accessToken);
     }
 }

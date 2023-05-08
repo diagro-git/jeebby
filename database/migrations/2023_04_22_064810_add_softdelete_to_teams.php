@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('teams', function (Blueprint $table) {
-            $table->removeColumn('deleted_at');
+            $table->dropSoftDeletes();
         });
     }
 };
