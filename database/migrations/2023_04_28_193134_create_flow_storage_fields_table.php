@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('flow_storage_fields', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id')->primary();
             $table->foreignIdFor(\App\Models\Flow::class);
             $table->string('name', 30);
             $table->unsignedTinyInteger('type');

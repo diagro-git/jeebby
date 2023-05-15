@@ -11,6 +11,8 @@ class Installation extends Pivot
 {
     use SoftDeletes;
 
+    protected $table = 'installations';
+
     public function flow(): BelongsTo
     {
         return $this->belongsTo(Flow::class);

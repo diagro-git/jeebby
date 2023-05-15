@@ -19,13 +19,13 @@ class Flow extends Model
 
     public function teams(): BelongsToMany
     {
-        return $this->belongsToMany(Team::class)
+        return $this->belongsToMany(Team::class, 'installations')
             ->as('installation')
             ->using(Installation::class)
             ->withTimestamps();
     }
 
-    public function storageFields(): HasMany
+    public function flowStorageFields(): HasMany
     {
         return $this->hasMany(FlowStorageField::class);
     }

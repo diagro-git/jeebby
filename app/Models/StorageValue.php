@@ -30,7 +30,7 @@ class StorageValue extends Model
         return $this->belongsTo(Flow::class);
     }
 
-    public function storageField(): BelongsTo
+    public function flowStorageField(): BelongsTo
     {
         return $this->belongsTo(FlowStorageField::class);
     }

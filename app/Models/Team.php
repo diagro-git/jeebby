@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,7 +13,7 @@ use Laravel\Jetstream\Team as JetstreamTeam;
 
 class Team extends JetstreamTeam
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasUlids;
 
     /**
      * The attributes that should be cast.
@@ -46,7 +47,7 @@ class Team extends JetstreamTeam
 
     public function flows(): BelongsToMany
     {
-        return $this->belongsToMany(Flow::class)
+        return $this->belongsToMany(Flow::class, 'installations')
             ->as('installation')
             ->using(Installation::class)
             ->withTimestamps();

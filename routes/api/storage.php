@@ -4,24 +4,19 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('storage')->controller(\App\Http\Controllers\StorageController::class)
     ->group(function() {
 
-        Route::get('fields/{flow}', 'fields')
-            ->can('view', 'flow'); //iets met storage in access token rechten geburiken
+        Route::get('fields/{flow}', 'fields')->middleware('ability:storage:read');
 
-        Route::post('/team/{team}/flow/{flow}/field/{flowStorageField:name}', 'store')
-            ->can('view', 'flow')
-            ->can('view', 'team')
-            ->can('view', 'flowStorageField')
-            ->can('store', \App\Models\StorageValue::class);
-
-        Route::prefix('installation/{installation}/field/{flowStorageField:name}')
+        Route::prefix('/team/{team}/flow/{flow}/field/{flowStorageField:name}')
             ->group(function() {
+                Route::post('/', 'store')->middleware('ability:storage:write');
 
-                Route::get('/last-value', 'lastValue');
-                Route::get('/from/{from}/to/{to}');
-                Route::get('/today');
-                Route::get('/yesterday');
-                Route::get('/today-yesterday');
-
+                Route::middleware('ability:storage-read')->group(function() {
+                    Route::get('/last-value', 'lastValue');
+                    Route::get('/from/{from}/to/{to}/{aggregation}', 'betweenDates');
+                    Route::get('/today/{aggregation}', 'today');
+                    Route::get('/yesterday/{aggregation}', 'yesterday');
+                    Route::get('/today-yesterday/{aggregation}', 'todayYesterday');
+                });
             });
 
     });

@@ -2,6 +2,7 @@
 namespace App;
 
 use Closure;
+use ReflectionClass;
 
 final class Permissions
 {
@@ -11,7 +12,6 @@ final class Permissions
      */
     const STORAGE_READ      = 'storage:read';
     const STORAGE_WRITE     = 'storage:write';
-    const STORAGE_DELETE    = 'storage:delete';
 
     /**
      * Monitor permissions
@@ -34,7 +34,7 @@ final class Permissions
      */
     public static function getAllPermissions(closure $closure = null): array
     {
-        $class = new \ReflectionClass(__CLASS__);
+        $class = new ReflectionClass(__CLASS__);
         $permissions = tap($class->getConstants(), function(array $permissions) use ($closure) {
             return $closure ? $closure($permissions) : $permissions;
         });

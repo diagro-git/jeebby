@@ -29,7 +29,7 @@ class StorageValueRule implements ValidationRule
                     $fail(':attribute is not a valid array.');
                 break;
             case StorageFieldType::BOOLEAN:
-                if(! is_bool($value))
+                if(! is_bool(boolval($value)))
                     $fail(':attribute is not a valid boolean.');
                 break;
             case StorageFieldType::DATE:
@@ -43,12 +43,12 @@ class StorageValueRule implements ValidationRule
                 }
                 break;
             case StorageFieldType::DECIMAL:
-                if(! is_double($value)) {
+                if(! is_double(doubleval($value))) {
                     $fail(':attribute is not a valid decimal.');
                 }
                 break;
             case StorageFieldType::INT:
-                if(! is_int($value)) {
+                if(! is_int(intval($value))) {
                     $fail(':attribute mus be a valid integer.');
                 }
                 break;

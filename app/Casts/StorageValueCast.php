@@ -18,7 +18,7 @@ class StorageValueCast implements CastsAttributes
     {
         if($model instanceof \App\Models\StorageValue) {
             /** @var StorageFieldType $storageFieldType */
-            $storageFieldType = $model->storageField->type;
+            $storageFieldType = $model->flowStorageField->type;
             switch($storageFieldType)
             {
                 case StorageFieldType::ARRAY:
@@ -52,7 +52,7 @@ class StorageValueCast implements CastsAttributes
     {
         if($model instanceof \App\Models\StorageValue) {
             /** @var StorageFieldType $storageFieldType */
-            $storageFieldType = $model->storageField->type;
+            $storageFieldType = $model->flowStorageField->type;
             switch($storageFieldType)
             {
                 case StorageFieldType::JSON:
