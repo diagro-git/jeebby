@@ -7,6 +7,7 @@ Route::prefix('storage')->controller(\App\Http\Controllers\StorageController::cl
         Route::get('fields/{flow}', 'fields')->middleware('ability:storage:read');
 
         Route::prefix('/team/{team}/flow/{flow}/field/{flowStorageField:name}')
+            ->scopeBindings()
             ->group(function() {
                 Route::post('/', 'store')->middleware('ability:storage:write');
 

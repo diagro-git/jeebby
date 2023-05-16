@@ -16,16 +16,17 @@ class StorageController extends Controller
 
     public function fields(Request $request, Flow $flow)
     {
-        return FlowStorageFieldResource::collection($flow->storageFields);
+        return FlowStorageFieldResource::collection($flow->flowStorageFields);
     }
 
     public function store(StorageRequest $request, Team $team, Flow $flow, FlowStorageField $flowStorageField)
     {
         $data = $request->validationData();
-        $storageValue = new StorageValue($data);
+        $storageValue = new StorageValue();
         $storageValue->team()->associate($team);
         $storageValue->flow()->associate($flow);
         $storageValue->flowStorageField()->associate($flowStorageField);
+        $storageValue->value = $data['value'];
         $storageValue->saveOrFail();
     }
 
