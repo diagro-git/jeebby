@@ -11,12 +11,12 @@ Route::prefix('storage')->controller(\App\Http\Controllers\StorageController::cl
             ->group(function() {
                 Route::post('/', 'store')->middleware('ability:storage:write');
 
-                Route::middleware('ability:storage-read')->group(function() {
+                Route::middleware('ability:storage:read')->group(function() {
                     Route::get('/last-value', 'lastValue');
-                    Route::get('/from/{from}/to/{to}/{aggregation}', 'betweenDates');
-                    Route::get('/today/{aggregation}', 'today');
-                    Route::get('/yesterday/{aggregation}', 'yesterday');
-                    Route::get('/today-yesterday/{aggregation}', 'todayYesterday');
+                    Route::get('/from/{from}/to/{to}/{aggregation?}', 'betweenDates');
+                    Route::get('/today/{aggregation?}', 'today');
+                    Route::get('/yesterday/{aggregation?}', 'yesterday');
+                    Route::get('/yesterday-today/{aggregation?}', 'yesterdayToday');
                 });
             });
 
