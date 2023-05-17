@@ -15,9 +15,7 @@ class FlowStorageField extends Model
     protected $fillable = [
         'flow_id',
         'name',
-        'type',
-        'input',
-        'output',
+        'type'
     ];
 
     protected $casts = [
@@ -30,4 +28,6 @@ class FlowStorageField extends Model
     {
         return $this->belongsTo(Flow::class);
     }
+
+    //functies voor bindings op te vragen.
 }

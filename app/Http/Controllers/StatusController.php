@@ -9,7 +9,7 @@ use App\Models\Status;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
-class StorageController extends Controller
+class StatusController extends Controller
 {
 
     public function all(Request $request, Team $team, Flow $flow)

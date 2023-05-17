@@ -12,6 +12,7 @@ use App\Services\Storage\Enums\Aggregation;
 use App\Services\StorageService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class StorageController extends Controller
 {
@@ -23,6 +24,8 @@ class StorageController extends Controller
 
     public function store(StorageRequest $request, Team $team, Flow $flow, FlowStorageField $flowStorageField)
     {
+        abort_if($flowStorageField->output, Response::HTTP_BAD_REQUEST, 'Storage field is not an output storage field.');
+
         $data = $request->validationData();
         $storageValue = new StorageValue();
         $storageValue->team()->associate($team);
