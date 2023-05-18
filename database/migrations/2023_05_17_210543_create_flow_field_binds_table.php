@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('flow_field_binds', function (Blueprint $table) {
             $table->id();
-            $table->foreign(\App\Models\Team::class);
-            $table->foreign(\App\Models\FlowStorageField::class, 'flow_storage_field_input_id');
-            $table->foreign(\App\Models\FlowStorageField::class, 'flow_storage_field_output_id');
+            $table->foreignIdFor(\App\Models\Team::class);
+            $table->foreignIdFor(\App\Models\FlowStorageField::class, 'flow_storage_field_input_id');
+            $table->foreignIdFor(\App\Models\FlowStorageField::class, 'flow_storage_field_output_id');
             $table->timestamps();
             $table->softDeletes();
             $table->unique(['flow_storage_field_input_id', 'flow_storage_field_output_id'], 'bind_uq_1');

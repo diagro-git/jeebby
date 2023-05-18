@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Flow;
+use App\Models\FlowStorageField;
+use App\Models\Team;
+use App\Models\User;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -13,10 +17,6 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
-});
-
-Broadcast::channel('{team}.{flow}.{flowStorageField}', function(\App\Models\User $user,\App\Models\Team $team, \App\Models\Flow $flow, \App\Models\FlowStorageField $flowStorageField) {
-    return $user->belongsToTeam($team); //check if flow is installed with team and field belongs to the flow.
+Broadcast::channel('Team.{team}.Flow.{flow}.Field.{flowStorageField}', function(User $user, Team $team, Flow $flow, FlowStorageField $flowStorageField) {
+    return $user->belongsToTeam($team) && $team->flows->contains($flow->id) && $flow->flowStorageFields->contains($flowStorageField->id);
 });
