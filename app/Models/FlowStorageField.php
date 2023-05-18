@@ -6,6 +6,7 @@ use App\Models\Enums\StorageFieldType;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FlowStorageField extends Model
@@ -15,7 +16,9 @@ class FlowStorageField extends Model
     protected $fillable = [
         'flow_id',
         'name',
-        'type'
+        'type',
+        'input',
+        'output',
     ];
 
     protected $casts = [
@@ -29,5 +32,12 @@ class FlowStorageField extends Model
         return $this->belongsTo(Flow::class);
     }
 
-    //functies voor bindings op te vragen.
+    public function bindings(): HasMany
+    {
+        if($this->output === false) {
+            throw new \Exception('Flow storage field is not an output.');
+        }
+
+        return $this->hasMany(FlowFieldBind::class, 'flow_storage_field_output_id');
+    }
 }

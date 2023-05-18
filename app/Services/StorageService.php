@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Events\StorageValueStored;
 use App\Models\Flow;
 use App\Models\FlowStorageField;
 use App\Models\StorageValue;
@@ -89,6 +90,18 @@ class StorageService
             Carbon::yesterday(),
             Carbon::today()
         );
+    }
+
+    public function store(Team $team, Flow $flow, FlowStorageField $flowStorageField, mixed $value)
+    {
+        $storageValue = new StorageValue();
+        $storageValue->team()->associate($team);
+        $storageValue->flow()->associate($flow);
+        $storageValue->flowStorageField()->associate($flowStorageField);
+        $storageValue->value = $value;
+        $storageValue->saveOrFail();
+
+        StorageValueStored::dispatch($storageValue);
     }
 
 }
