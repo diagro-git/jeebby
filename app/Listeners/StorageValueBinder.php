@@ -5,7 +5,6 @@ namespace App\Listeners;
 use App\Events\StorageValueStored;
 use App\Models\FlowFieldBind;
 use App\Models\FlowStorageField;
-use App\Models\StorageValue;
 use App\Services\StorageService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;

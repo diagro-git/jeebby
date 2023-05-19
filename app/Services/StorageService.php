@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Events\StorageValueStored;
 use App\Models\Flow;
+use App\Models\FlowFieldBind;
 use App\Models\FlowStorageField;
 use App\Models\StorageValue;
 use App\Models\Team;
@@ -102,6 +103,15 @@ class StorageService
         $storageValue->saveOrFail();
 
         StorageValueStored::dispatch($storageValue);
+    }
+
+    public function bind(FlowStorageField $output, FlowStorageField $input)
+    {
+        $binding = new FlowFieldBind();
+        $binding->team()->associate(auth()->user()->currentTeam());
+        $binding->flowStorageFieldOutput()->associate($output);
+        $binding->flowStorageFieldInput()->associate($input);
+        $binding->saveOrFail();
     }
 
 }

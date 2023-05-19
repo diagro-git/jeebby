@@ -23,7 +23,7 @@ class StorageController extends Controller
 
     public function store(StorageRequest $request, StorageService $storageService, Team $team, Flow $flow, FlowStorageField $flowStorageField)
     {
-        abort_if($flowStorageField->output, Response::HTTP_BAD_REQUEST, 'Storage field is not an output storage field.');
+        abort_unless($flowStorageField->output, Response::HTTP_BAD_REQUEST, 'Storage field is not an output storage field.');
 
         $data = $request->validationData();
         $storageService->store($team, $flow, $flowStorageField, $data['value']);

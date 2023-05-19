@@ -7,7 +7,7 @@ use App\Events\StorageValueStored;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class NewInputValue
+class NewInputValue implements ShouldQueue
 {
     /**
      * Create the event listener.
