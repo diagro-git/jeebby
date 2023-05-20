@@ -22,7 +22,7 @@ class StatusController extends Controller
     public function current(Request $request, Team $team, Flow $flow)
     {
         return new StatusResource(
-            Status::installation($team, $flow)->latest()->first
+            Status::installation($team, $flow)->latest()->first()
         );
     }
 

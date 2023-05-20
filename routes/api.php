@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')
     ->group(function() {
         require_once 'api/storage.php';
+        require_once 'api/status.php';
     });
