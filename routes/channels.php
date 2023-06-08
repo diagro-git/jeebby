@@ -16,7 +16,3 @@ use Illuminate\Support\Facades\Broadcast;
 | used to check if an authenticated user can listen to the channel.
 |
 */
-
-Broadcast::channel('Team.{team}.Flow.{flow}.Field.{flowStorageField}', function(User $user, Team $team, Flow $flow, FlowStorageField $flowStorageField) {
-    return $user->belongsToTeam($team) && $team->flows->contains($flow->id) && $flow->flowStorageFields->contains($flowStorageField->id);
-});

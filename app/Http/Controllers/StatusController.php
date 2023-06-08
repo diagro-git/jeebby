@@ -12,20 +12,6 @@ use Illuminate\Http\Request;
 class StatusController extends Controller
 {
 
-    public function all(Request $request, Team $team, Flow $flow)
-    {
-        return StatusResource::collection(
-            Status::installation($team, $flow)->get()
-        );
-    }
-
-    public function current(Request $request, Team $team, Flow $flow)
-    {
-        return new StatusResource(
-            Status::installation($team, $flow)->latest()->first()
-        );
-    }
-
     public function store(StatusRequest $request, Team $team, Flow $flow)
     {
         $data = $request->validationData();

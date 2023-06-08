@@ -2,10 +2,7 @@
 
 namespace App\Providers;
 
-use App\Events\StorageValueStored;
 use App\Listeners\CreateJeebbySystemUser;
-use App\Listeners\NewInputValue;
-use App\Listeners\StorageValueBinder;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -25,10 +22,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         TeamCreated::class => [
             CreateJeebbySystemUser::class,
-        ],
-        StorageValueStored::class => [
-            StorageValueBinder::class,
-            NewInputValue::class,
         ]
     ];
 

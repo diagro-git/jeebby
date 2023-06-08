@@ -1,7 +1,6 @@
 <?php
 namespace App\Services;
 
-use App\Events\StorageValueStored;
 use App\Models\Flow;
 use App\Models\FlowFieldBind;
 use App\Models\FlowStorageField;
@@ -101,8 +100,6 @@ class StorageService
         $storageValue->flowStorageField()->associate($flowStorageField);
         $storageValue->value = $value;
         $storageValue->saveOrFail();
-
-        StorageValueStored::dispatch($storageValue);
     }
 
     public function bind(FlowStorageField $output, FlowStorageField $input)
