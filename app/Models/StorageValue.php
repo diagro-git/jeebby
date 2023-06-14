@@ -25,9 +25,9 @@ class StorageValue extends Model
         return $this->belongsTo(Team::class);
     }
 
-    public function flow(): BelongsTo
+    public function flow(): Flow
     {
-        return $this->belongsTo(Flow::class);
+        return $this->flowStorageField->flow;
     }
 
     public function flowStorageField(): BelongsTo

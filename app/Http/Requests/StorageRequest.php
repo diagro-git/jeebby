@@ -19,8 +19,10 @@ class StorageRequest extends ActionMethodRulesRequest
     {
         $storageField = $this->route('flowStorageField');
         if(is_string($storageField)) {
-            $storageField = FlowStorageField::query()->firstWhere('name', '=', $storageField);
+            $flowId = $this->route('flow');
+            $storageField = FlowStorageField::flow($flowId)->firstWhere('name', '=', $storageField);
         }
+
         return [
             'value' => ['present', new StorageValueRule($storageField->type)]
         ];

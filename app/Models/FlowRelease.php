@@ -2,25 +2,24 @@
 
 namespace App\Models;
 
-use App\Models\Enums\StorageFieldType;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Enums\ReleaseStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class FlowStorageField extends Model
+class FlowRelease extends Model
 {
-    use SoftDeletes, HasUlids;
+    use HasUlids, SoftDeletes;
 
     protected $fillable = [
         'flow_id',
-        'name',
-        'type',
+        'version',
+        'status',
     ];
 
     protected $casts = [
-        'type' => StorageFieldType::class,
+        'status' => ReleaseStatus::class,
     ];
 
     public function flow(): BelongsTo
@@ -28,8 +27,8 @@ class FlowStorageField extends Model
         return $this->belongsTo(Flow::class);
     }
 
-    public function scopeFlow(Builder $query, string $flowId)
+    public function getBranchName(): string
     {
-        $query->where('flow_id', '=', $flowId);
+        return $this->version . '-' . ucfirst($this->status->name);
     }
 }

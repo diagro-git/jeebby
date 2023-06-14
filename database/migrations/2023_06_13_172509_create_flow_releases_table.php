@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('flows', function (Blueprint $table) {
-            $table->ulid('id')->primary();
-            $table->string('name', 30)->unique();
-            $table->string('display_name', 30);
-            $table->string('description');
-            $table->json('flow_json');
+        Schema::create('flow_releases', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(\App\Models\Flow::class);
+            $table->string('version', 7);
+            $table->unsignedTinyInteger('status');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('flows');
+        Schema::dropIfExists('flow_releases');
     }
 };

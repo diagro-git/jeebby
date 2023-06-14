@@ -16,8 +16,6 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Flow::class);
             $table->string('name', 30);
             $table->unsignedTinyInteger('type');
-            $table->boolean('input')->default(false);
-            $table->boolean('output')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

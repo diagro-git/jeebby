@@ -14,6 +14,7 @@ class Flow extends Model
 
     protected $fillable = [
         'name',
+        'display_name',
         'description',
     ];
 
@@ -28,6 +29,11 @@ class Flow extends Model
     public function flowStorageFields(): HasMany
     {
         return $this->hasMany(FlowStorageField::class);
+    }
+
+    public function releases(): HasMany
+    {
+        return $this->hasMany(FlowRelease::class);
     }
 
 }
