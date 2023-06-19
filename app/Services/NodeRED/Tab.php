@@ -20,7 +20,7 @@ class Tab extends  BaseNode
 
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct('tab');
         $this->nodes = new Collection();
     }
 

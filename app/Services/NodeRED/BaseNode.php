@@ -16,35 +16,38 @@ abstract class BaseNode
 
     public string $id;
 
-    public string $type;
 
-
-    public function __construct()
+    public function __construct(
+        public string $type
+    )
     {
         $this->props = new Collection();
     }
 
     public static function factory(array $data): static
     {
-        $obj = new static();
-        $props = new Collection((new ReflectionClass($obj))->getProperties(ReflectionProperty::IS_PUBLIC));
+        $node = new static($data['type']);
+        $props = new Collection((new ReflectionClass($node))->getProperties(ReflectionProperty::IS_PUBLIC));
+        unset($data['type']);
+        $props->reject(fn(ReflectionProperty $property) => $property->name === 'type');
+
         foreach($data as $k => $v) {
             /** @var ReflectionProperty $prop */
             if(($prop = $props->first(fn(ReflectionProperty $property) => $property->name == $k)) !== null) {
-                if($prop->getType()->getName() == 'Collection' && is_array($v)) {
-                    $obj->{$k} = new Collection($v);
+                if($prop->getType()->getName() == Collection::class && is_array($v)) {
+                    $node->{$k} = new Collection($v);
                 } elseif($prop->getType()->getName() == 'int') {
-                    $obj->{$k} =  intval($v);
+                    $node->{$k} =  intval($v);
                 } else {
-                    $obj->{$k} = $v;
+                    $node->{$k} = $v;
                 }
             } else {
-                $obj->props->put($k, $v);
+                $node->props->put($k, $v);
             }
         }
 
-        $obj->afterFactory();
-        return $obj;
+        $node->afterFactory();
+        return $node;
     }
 
     public function toArray(): array
@@ -52,7 +55,7 @@ abstract class BaseNode
         $data = $this->props->toArray();
         $props = (new ReflectionClass($this))->getProperties(ReflectionProperty::IS_PUBLIC);
         foreach($props as $prop) {
-            if($prop->getType() == 'Collection') {
+            if($prop->getType() == Collection::class) {
                 $data[$prop->name] = $prop->getValue()->toArray();
             } else {
                 $data[$prop->name] = $prop->getValue();

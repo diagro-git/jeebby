@@ -1,35 +1,23 @@
 <?php
 namespace App\Services;
 
-use App\Services\NodeRED\Node;
 use App\Services\NodeRED\NodeRED;
-use App\Services\NodeRED\Tab;
-use Illuminate\Support\Arr;
 
 class NodeREDService
 {
 
+    public ?NodeRED $nodeRED = null;
 
-    public function factory(array $flowData): NodeRED
+
+    public function make(array $flowData): NodeRED
     {
-        $nodeRED = new NodeRED();
+        $this->nodeRED = new NodeRED($flowData);
+        return $this->nodeRED;
+    }
 
-        foreach($flowData as $data) {
-            if($data['type'] == 'tab') {
-                $tab = Tab::factory($data);
-                $nodeRED->addTab($tab);
-            } elseif(array_key_exists('z', $data)) {
-                /** @var Tab $tab */
-                $tab = $nodeRED->tabs()->first(fn(Tab $tab) => $tab->id == $data['z']);
-                $node = Node::factory($data);
-                $tab->addNode($node);
-            } else {
-                //configuration nodes
-                //andere nodes?
-            }
-        }
-
-        return $nodeRED;
+    public function toJSON(): string
+    {
+        return json_encode($this->nodeRED->toArray());
     }
 
 

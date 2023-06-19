@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\NodeREDService;
 use App\Services\StorageService;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Jetstream\Actions\UpdateTeamMemberRole;
@@ -15,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(UpdateTeamMemberRole::class, \App\Extensions\Jetstream\UpdateTeamMemberRole::class);
         $this->app->bind(StorageService::class);
+        $this->app->bind(NodeREDService::class);
     }
 
     /**

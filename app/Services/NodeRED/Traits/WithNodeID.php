@@ -5,7 +5,7 @@ namespace App\Services\NodeRED\Traits;
 trait WithNodeID
 {
 
-    protected function generateId(): string
+    public static function generateId(): string
     {
         $bytes = [];
         for ($i = 0 ; $i < 8 ; $i++) {
@@ -17,7 +17,7 @@ trait WithNodeID
 
     public function refreshId()
     {
-        $this->id = $this->generateId();
+        $this->id = self::generateId();
     }
 
 }
