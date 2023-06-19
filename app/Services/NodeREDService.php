@@ -1,27 +1,35 @@
 <?php
 namespace App\Services;
 
-use App\Services\NodeRED\Flow;
+use App\Services\NodeRED\Node;
+use App\Services\NodeRED\NodeRED;
+use App\Services\NodeRED\Tab;
+use Illuminate\Support\Arr;
 
 class NodeREDService
 {
 
 
-    public function factory(array $flowData): Flow
+    public function factory(array $flowData): NodeRED
     {
-        //FlowFactory
-        //NodeFactory
-    }
+        $nodeRED = new NodeRED();
 
-
-    public function generateId(): string
-    {
-        $bytes = [];
-        for ($i = 0 ; $i < 8 ; $i++) {
-            $rand = mt_rand(0, mt_getrandmax() - 1) / mt_getrandmax();
-            $bytes[] = str_pad(dechex(round(0xFF * $rand)), 2, '0', STR_PAD_LEFT);
+        foreach($flowData as $data) {
+            if($data['type'] == 'tab') {
+                $tab = Tab::factory($data);
+                $nodeRED->addTab($tab);
+            } elseif(array_key_exists('z', $data)) {
+                /** @var Tab $tab */
+                $tab = $nodeRED->tabs()->first(fn(Tab $tab) => $tab->id == $data['z']);
+                $node = Node::factory($data);
+                $tab->addNode($node);
+            } else {
+                //configuration nodes
+                //andere nodes?
+            }
         }
-        return implode('', $bytes);
+
+        return $nodeRED;
     }
 
 

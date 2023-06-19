@@ -24,7 +24,7 @@ class StorageController extends Controller
     public function lastValue(Request $request, StorageService $storageService, Team $team, Flow $flow, FlowStorageField $flowStorageField)
     {
         return response()->json([
-            'value' => $storageService->getLastValue($team, $flow, $flowStorageField)
+            'data' => $storageService->getLastValue($team, $flow, $flowStorageField)
         ]);
     }
 
